@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f6f5f0;
+  --foreground: #1c1917;
+  /* 下部ナビ・＋ボタンの配置（safe area を含めて計算する） */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --nav-h: 4rem;
+  --fab-size: 3.5rem;
+  --fab-gap: 1rem;
+  --nav-total: calc(var(--nav-h) + var(--safe-bottom));
+  --fab-bottom: calc(var(--nav-total) + var(--fab-gap));
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* 自動保存の控えめなフィードバック（約1秒表示して消える） */
+@keyframes hg-fade-out {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  12% {
+    opacity: 1;
+    transform: none;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.hg-fade-out {
+  animation: hg-fade-out 1.2s ease-out forwards;
+  pointer-events: none;
+}
+
+/* 伝説形態のキラキラ（控えめな明滅） */
+@keyframes hg-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.hg-twinkle {
+  animation: hg-twinkle 2.4s ease-in-out infinite;
+}
+
+/* 伝説形態 解放！の短い演出（ふわっと出て数秒で消える） */
+@keyframes hg-legend-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  8% {
+    opacity: 1;
+    transform: none;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.hg-legend-pop {
+  animation: hg-legend-pop 4.5s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-twinkle {
+    animation: none;
+  }
 }

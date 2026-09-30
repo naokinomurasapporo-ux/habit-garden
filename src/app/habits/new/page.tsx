@@ -1,11 +1,11 @@
 import { Suspense } from "react";
-import { HomeScreen } from "@/components/HomeScreen";
 import { Loading } from "@/components/Loading";
+import { NewHabitWizard } from "@/components/NewHabitWizard";
 
 export default function Page() {
   return (
     <Suspense fallback={<Loading />}>
-      <HomeScreen />
+      <NewHabitWizard />
     </Suspense>
   );
 }
