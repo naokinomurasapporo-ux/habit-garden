@@ -1,13 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { deleteHabit } from "@/lib/store";
 import type { Habit } from "@/lib/types";
+import { useReturnTo } from "./BackButton";
 
 /** 習慣の削除（2段階確認）。詳細画面・編集画面で共通 */
 export function DeleteHabitButton({ habit }: { habit: Habit }) {
-  const router = useRouter();
+  const returnTo = useReturnTo();
   const [confirming, setConfirming] = useState(false);
   if (!confirming) {
     return (
@@ -27,7 +27,7 @@ export function DeleteHabitButton({ habit }: { habit: Habit }) {
           type="button"
           onClick={() => {
             deleteHabit(habit.id);
-            router.replace(habit.kind === "quit" ? "/?tab=quit" : "/");
+            returnTo(habit.kind === "quit" ? "/?tab=quit" : "/");
           }}
           className="rounded-xl bg-red-600 py-2 text-sm font-bold text-white"
         >

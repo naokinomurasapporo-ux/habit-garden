@@ -16,7 +16,9 @@ export function BottomNav() {
     <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-stone-200 bg-white/95 pb-(--safe-bottom) backdrop-blur">
       <ul className="mx-auto flex h-(--nav-h) max-w-md items-stretch">
         {ITEMS.map((item) => {
-          const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+          // カレンダーはホームから開く画面なので「ホーム」を選択状態にする
+          const active =
+            item.href === "/" ? pathname === "/" || pathname.startsWith("/calendar") : pathname.startsWith(item.href);
           return (
             <li key={item.href} className="flex-1">
               <Link

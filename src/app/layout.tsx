@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { BottomNav } from "@/components/BottomNav";
 import { LegendUnlockToast } from "@/components/LegendUnlockToast";
+import { NavTracker } from "@/components/NavTracker";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="ja" className="h-full antialiased">
       <body className="min-h-full font-sans">
         <div className="mx-auto min-h-dvh max-w-md pb-[calc(var(--nav-total)+1.5rem)]">{children}</div>
+        <NavTracker />
         <BottomNav />
         <LegendUnlockToast />
       </body>

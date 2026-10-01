@@ -21,6 +21,7 @@ import { MAX_LEVEL } from "@/lib/level";
 import { STAGE_LEVELS, habitPartner, stageName } from "@/lib/partners";
 import { useAppState, useToday } from "@/lib/store";
 import type { DateKey, Habit, PartnerCompletion } from "@/lib/types";
+import { BackButton } from "./BackButton";
 import { DeleteHabitButton } from "./DeleteHabitButton";
 import { Heatmap } from "./Heatmap";
 import { Loading } from "./Loading";
@@ -56,9 +57,7 @@ export function HabitDetail({ id }: { id: string }) {
   return (
     <main className="px-4 pt-3 pb-8">
       <header className="flex items-center justify-between">
-        <Link href={habit.kind === "quit" ? "/?tab=quit" : "/"} className="py-2 pr-3 text-sm text-stone-500">
-          ‹ ホーム
-        </Link>
+        <BackButton fallback="/" showHome />
         <div className="flex min-w-0 items-center gap-2">
           <p className="min-w-0 text-right text-xs text-stone-400">
             {habit.kind === "quit" ? "やらない" : "続ける"}・{habit.kind === "quit" ? "守った/破った" : TRACK_LABEL[habit.trackType]}・{frequencyLabel(habit)}

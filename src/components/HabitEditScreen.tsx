@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { goalFormFromHabit, goalFormToHabitFields, isGoalFormValid, type GoalFormState } from "@/lib/habit-form";
 import { getPartner } from "@/lib/partners";
 import { updateHabit, useAppState } from "@/lib/store";
 import type { Habit, HabitCategory } from "@/lib/types";
+import { BackButton, useReturnTo } from "./BackButton";
 import { DeleteHabitButton } from "./DeleteHabitButton";
 import { CategoryChips } from "./form/CategoryPicker";
 import { Field } from "./form/FormParts";
@@ -36,7 +36,7 @@ export function HabitEditScreen({ id }: { id: string }) {
  * 記録タイプ（入力方式）は変更不可。過去の記録データは一切書き換えない。
  */
 function EditForm({ habit }: { habit: Habit }) {
-  const router = useRouter();
+  const returnTo = useReturnTo();
   const [name, setName] = useState(habit.name);
   const [goal, setGoal] = useState<GoalFormState>(() => goalFormFromHabit(habit));
   const [category, setCategory] = useState<HabitCategory>(habit.category);
@@ -55,13 +55,14 @@ function EditForm({ habit }: { habit: Habit }) {
       : // 記録タイプは元の値で固定（フォーム側でもロックしているが念のため）
         { ...habit, ...common, ...goalFormToHabitFields(goal), trackType: habit.trackType };
     updateHabit(next);
-    router.replace(detailHref);
+    // 詳細から来ていれば戻る（履歴に詳細が二重に積まれないように）
+    returnTo(detailHref);
   };
 
   return (
     <main className="flex min-h-dvh flex-col px-4 pt-4">
       <header className="flex items-center justify-between">
-        <Link href={detailHref} className="py-2 pr-3 text-sm text-stone-500">キャンセル</Link>
+        <BackButton fallback={detailHref} label="キャンセル" />
         <h1 className="text-base font-bold text-stone-800">習慣を編集</h1>
         <span className="w-16" aria-hidden />
       </header>

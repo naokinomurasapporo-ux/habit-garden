@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { getCategory } from "@/lib/categories";
 import { goalFormFromTemplate, goalFormToHabitFields, initialGoalForm, isGoalFormValid, type GoalFormState } from "@/lib/habit-form";
@@ -9,6 +8,7 @@ import { getPartner, recommendedPartners } from "@/lib/partners";
 import { addHabit } from "@/lib/store";
 import { templatesFor, type HabitTemplate } from "@/lib/templates";
 import type { HabitCategory, HabitKind } from "@/lib/types";
+import { BackButton, useReturnTo } from "./BackButton";
 import { CategoryChips } from "./form/CategoryPicker";
 import { Choice, Field } from "./form/FormParts";
 import { HabitGoalFields } from "./form/HabitGoalFields";
@@ -19,7 +19,7 @@ const STEP_TITLES = ["どんな習慣？", "記録のしかた", "育てるパ�
 type Mode = "entry" | "templates" | "form";
 
 export function NewHabitWizard() {
-  const router = useRouter();
+  const returnTo = useReturnTo();
   const params = useSearchParams();
   const [mode, setMode] = useState<Mode>("entry");
   const [browseCategory, setBrowseCategory] = useState<HabitCategory>("health");
@@ -68,14 +68,15 @@ export function NewHabitWizard() {
     const base = { name: name.trim(), kind, category, partnerType: partner.type, partnerId: partner.id };
     if (isQuit) addHabit({ ...base, trackType: "check", period: "day", target: 1 });
     else addHabit({ ...base, ...goalFormToHabitFields(goal) });
-    router.push(isQuit ? "/?tab=quit" : "/");
+    // ホームから来ていれば戻る（作成画面を履歴に残さない）
+    returnTo(isQuit ? "/?tab=quit" : "/");
   };
 
   if (mode === "entry") {
     return (
       <main className="flex min-h-dvh flex-col px-4 pt-4">
         <header className="flex items-center justify-between">
-          <Link href="/" className="py-2 pr-3 text-sm text-stone-500">キャンセル</Link>
+          <BackButton fallback="/" label="キャンセル" />
         </header>
         <h1 className="mt-4 text-xl font-bold text-stone-800">新しい習慣を植える</h1>
         <div className="mt-5 grid grid-cols-2 gap-3">

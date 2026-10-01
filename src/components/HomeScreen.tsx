@@ -53,14 +53,22 @@ export function HomeScreen() {
       // レイアウト側の余白（ナビ高さ + 1.5rem）に＋ボタン分を足し、最下部のカードが＋ボタンの上に出るようにする
       className="px-4 pt-5 pb-[calc(var(--fab-gap)+var(--fab-size))]"
     >
-      <header className="flex items-end justify-between">
-        <h1 className="text-xl font-bold tracking-tight text-emerald-900">Habit Garden</h1>
-        {summaries.length > 0 && (
-          <p className="text-xs text-stone-500">
-            {shortDayLabel(viewDate, today)}の積み上げ{" "}
-            <span className="text-base font-bold text-emerald-700">{entered}</span>/{summaries.length}
-          </p>
-        )}
+      <header className="flex items-end justify-between gap-2">
+        <div className="min-w-0">
+          {summaries.length > 0 && (
+            <p className="text-xs text-stone-500">
+              {shortDayLabel(viewDate, today)}の積み上げ{" "}
+              <span className="font-bold text-emerald-700">{entered}</span>/{summaries.length}
+            </p>
+          )}
+          <h1 className="text-xl font-bold tracking-tight text-emerald-900">Habit Garden</h1>
+        </div>
+        <Link
+          href="/calendar"
+          className="flex h-9 shrink-0 items-center gap-1 rounded-full border border-stone-200 bg-white px-3 text-xs font-bold text-stone-600 active:bg-stone-50"
+        >
+          <span aria-hidden>📅</span>カレンダー
+        </Link>
       </header>
 
       {summaries.length > 0 && (

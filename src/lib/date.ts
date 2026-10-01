@@ -83,3 +83,8 @@ export function formatYearMonth(key: DateKey): string {
 export function minKey(a: DateKey, b: DateKey): DateKey {
   return a < b ? a : b;
 }
+
+/** "YYYY-MM-DD" として正しい日付か（URL から受け取る日付の検証用） */
+export function isDateKey(s: string): boolean {
+  return /^\d{4}-\d{2}-\d{2}$/.test(s) && toKey(fromKey(s)) === s;
+}
