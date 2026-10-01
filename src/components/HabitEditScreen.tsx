@@ -62,7 +62,7 @@ function EditForm({ habit }: { habit: Habit }) {
   return (
     <main className="flex min-h-dvh flex-col px-4 pt-4">
       <header className="flex items-center justify-between">
-        <BackButton fallback={detailHref} label="キャンセル" />
+        <BackButton to={detailHref} />
         <h1 className="text-base font-bold text-stone-800">習慣を編集</h1>
         <span className="w-16" aria-hidden />
       </header>

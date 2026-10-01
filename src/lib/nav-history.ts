@@ -60,6 +60,16 @@ export function getPreviousPath(current: string): string | null {
   return previousPathOf(stack, current);
 }
 
+/**
+ * アプリ内の履歴で target まで何画面戻ればよいか（負の数）。履歴に無ければ null。
+ * 例：ホーム → カレンダー → 日別 → 習慣詳細 で習慣を削除 → ホームまで -3
+ */
+export function stepsBackTo(current: string, target: string): number | null {
+  const here = stack[stack.length - 1] === current ? stack.length - 1 : stack.length;
+  const idx = stack.lastIndexOf(target);
+  return idx >= 0 && idx < here ? idx - here : null;
+}
+
 export function useNavStack(): string[] {
   return useSyncExternalStore(
     subscribe,

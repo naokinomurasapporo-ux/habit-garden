@@ -20,7 +20,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ja" className="h-full antialiased">
       <body className="min-h-full font-sans">
-        <div className="mx-auto min-h-dvh max-w-md pb-[calc(var(--nav-total)+1.5rem)]">{children}</div>
+        {/* 下部の余白は BottomNav が画面の種類（トップレベル / 階層）に応じて確保する */}
+        <div className="mx-auto min-h-dvh max-w-md">{children}</div>
         <NavTracker />
         <BottomNav />
         <LegendUnlockToast />

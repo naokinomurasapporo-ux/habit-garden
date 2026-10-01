@@ -57,7 +57,7 @@ export function HabitDetail({ id }: { id: string }) {
   return (
     <main className="px-4 pt-3 pb-8">
       <header className="flex items-center justify-between">
-        <BackButton fallback="/" showHome />
+        <BackButton fallback="/" />
         <div className="flex min-w-0 items-center gap-2">
           <p className="min-w-0 text-right text-xs text-stone-400">
             {habit.kind === "quit" ? "やらない" : "続ける"}・{habit.kind === "quit" ? "守った/破った" : TRACK_LABEL[habit.trackType]}・{frequencyLabel(habit)}

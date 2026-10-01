@@ -7,7 +7,6 @@ import { addDays, addMonths, daysInMonth, formatYearMonth, monthStart, weekdayIn
 import { summarizeDay, type DaySummary } from "@/lib/daily";
 import { useAppState, useToday } from "@/lib/store";
 import type { DateKey } from "@/lib/types";
-import { BackButton } from "./BackButton";
 import { Loading } from "./Loading";
 
 const WEEK_HEAD = ["月", "火", "水", "木", "金", "土", "日"];
@@ -45,12 +44,8 @@ export function CalendarScreen() {
   const perfect = days.filter((d) => d.summary?.perfect).length;
 
   return (
-    <main className="px-4 pt-3">
-      <header className="flex items-center justify-between">
-        <BackButton fallback="/" />
-        <h1 className="text-base font-bold text-stone-800">カレンダー</h1>
-        <span className="w-16" aria-hidden />
-      </header>
+    <main className="px-4 pt-5">
+      <h1 className="text-xl font-bold text-emerald-900">カレンダー</h1>
 
       <div className="mt-2 flex items-center justify-between">
         <button

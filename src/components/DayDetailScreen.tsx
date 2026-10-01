@@ -63,7 +63,7 @@ export function DayDetailScreen({ date }: { date: string }) {
   return (
     <main className="px-4 pt-3">
       <header className="flex items-center justify-between">
-        <BackButton fallback={calendarHref} showHome />
+        <BackButton fallback={calendarHref} />
         <div className="flex items-center">
           <button
             type="button"

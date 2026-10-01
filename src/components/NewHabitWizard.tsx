@@ -76,7 +76,7 @@ export function NewHabitWizard() {
     return (
       <main className="flex min-h-dvh flex-col px-4 pt-4">
         <header className="flex items-center justify-between">
-          <BackButton fallback="/" label="キャンセル" />
+          <BackButton to="/" />
         </header>
         <h1 className="mt-4 text-xl font-bold text-stone-800">新しい習慣を植える</h1>
         <div className="mt-5 grid grid-cols-2 gap-3">
